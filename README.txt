@@ -1,40 +1,38 @@
-DMS Lector de Cédulas - Paquete Final
-=====================================
+# Lector de Cédulas
 
-Estructura de configuraciones
------------------------------
-La carpeta configs ahora se organiza así:
+Aplicación de escritorio para Windows que automatiza la lectura de cédulas costarricenses y el llenado de formularios.
 
-- configs/formularios/: configuraciones seleccionables para autocompletar formularios.
-- configs/sistema/: configuración activa, favoritas y último puerto COM.
-- configs/formatos/: catálogo de formatos de cédulas y documentos reconocidos.
+## Funcionalidades
 
-Al iniciar el lector o el administrador, los archivos de versiones anteriores se migran automáticamente a su carpeta correspondiente sin eliminar configuraciones existentes.
+- Lectura automática mediante dispositivos conectados por puerto serial.
+- Compatibilidad con cédulas binarias, documentos CSV, códigos QR y estructuras mDoc.
+- Validación de datos para evitar escribir lecturas incompletas o no reconocidas.
+- Configuraciones personalizadas de campos, orden y tabulaciones.
+- Selección de dos configuraciones favoritas y cambio rápido con `Ctrl + Alt + C`.
+- Herramientas para capturar y analizar nuevos formatos de documentos.
+- Dashboard para administrar clientes, licencias, actualizaciones e instaladores.
 
-Cambio rápido
--------------
-Desde crear_configuracion.exe se seleccionan dos configuraciones favoritas.
-Mientras el lector esté ejecutándose, Ctrl+Alt+C alterna inmediatamente entre ambas. La misma acción está disponible desde el icono de bandeja.
+## Estructura de configuraciones
 
-Archivos principales
---------------------
-- dashboard.py: administra clientes, licencias e instaladores.
-- template/main.py: inicio, migración, selector y atajo global.
-- template/crear_configuracion.py: administrador de formularios y favoritos.
-- template/lector_otras_cedulas.py: capturador auxiliar de documentos no soportados.
-- template/capturar_nuevo_formato.py: herramienta RAW/HEX/Base64 para nuevos formatos.
-- template/assets/runtime/: módulos internos conservados por el instalador y las actualizaciones.
-- template/configs/formatos/formatos_cedulas.json: catálogo actual de formatos.
+- `configs/formularios/`: configuraciones seleccionables para completar formularios.
+- `configs/sistema/`: configuración activa, favoritas y último puerto COM.
+- `configs/formatos/`: catálogo de formatos de documentos reconocidos.
 
-Requisitos
-----------
-1. Python 3.10 o superior.
-2. Inno Setup 6.
-3. Ejecutar installer/generar_dashboard_exe.bat.
-4. Abrir dist_dashboard/DashboardInstaladoresDMS.exe.
-5. Crear cliente/licencia y generar el instalador.
+Las configuraciones de versiones anteriores se migran automáticamente sin eliminar archivos existentes.
 
-Notas
------
-- Las actualizaciones conservan la licencia y toda la carpeta configs.
-- Las lecturas no reconocidas no se escriben en pantalla y se guardan para diagnóstico.
+## Tecnologías
+
+Python, Tkinter, PySerial, PyAutoGUI, Pillow, Pystray, Requests, BeautifulSoup, JSON, PyInstaller e Inno Setup.
+
+## Ejecución
+
+1. Instalar Python 3.10 o superior.
+2. Ejecutar `EJECUTAR_DASHBOARD.bat` para abrir el dashboard con Python.
+3. Para generar el ejecutable del dashboard, ejecutar `installer/generar_dashboard_exe.bat`.
+4. El resultado se crea en `dist_dashboard/DashboardInstaladores.exe`.
+
+## Notas
+
+- Las actualizaciones conservan la licencia y la carpeta `configs`.
+- Las lecturas no reconocidas se guardan en registros de diagnóstico y no se escriben en el formulario.
+- El proyecto utiliza una identidad visual genérica y no está asociado públicamente con ninguna empresa.

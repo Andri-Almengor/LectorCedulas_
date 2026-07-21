@@ -20,9 +20,9 @@ READ_MAX_BYTES = 1600
 MIN_BYTES_VALIDOS = 8
 
 PROMPT_PARA_CHATGPT = """
-PROMPT PARA AGREGAR UN NUEVO FORMATO AL LECTOR DMS
+PROMPT PARA AGREGAR UN NUEVO FORMATO AL LECTOR LectorCedulas
 
-Actúa como desarrollador Python del sistema lector de cédulas DMS.
+Actúa como desarrollador Python del sistema lector de cédulas LectorCedulas.
 Te voy a cargar este TXT y el archivo configs/formatos_cedulas.json actual.
 Necesito que analices las muestras RAW del documento nuevo y me devuelvas SOLO el JSON completo de formatos_cedulas.json con un nuevo formato agregado, sin eliminar los formatos existentes.
 
@@ -180,7 +180,7 @@ def listar_puertos():
 
 def main():
     root = Tk()
-    root.title("DMS - Capturar nuevo formato de documento")
+    root.title("Capturar nuevo formato de documento")
     root.geometry("700x330")
     root.resizable(False, False)
 

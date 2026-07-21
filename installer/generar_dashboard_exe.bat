@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0\.."
 
 echo ===============================================
-echo  Generando DashboardInstaladoresDMS.exe
+echo  Generando DashboardInstaladores.exe
 echo ===============================================
 
 py -m pip install -r requirements.txt
@@ -19,8 +19,8 @@ mkdir dist_dashboard 2>nul
 echo.
 echo Intentando compilar Dashboard con icono...
 py -m PyInstaller --noconfirm --clean --windowed --onefile ^
-  --name DashboardInstaladoresDMS ^
-  --icon template\assets\DMS_icono_circulo_i.ico ^
+  --name DashboardInstaladores ^
+  --icon template\assets\icono.ico ^
   --add-data "template;template" ^
   --add-data "tools;tools" ^
   --add-data "requirements.txt;." ^
@@ -32,7 +32,7 @@ if errorlevel 1 (
   rmdir /s /q build 2>nul
   rmdir /s /q dist 2>nul
   py -m PyInstaller --noconfirm --clean --windowed --onefile ^
-    --name DashboardInstaladoresDMS ^
+    --name DashboardInstaladores ^
     --add-data "template;template" ^
     --add-data "tools;tools" ^
     --add-data "requirements.txt;." ^
@@ -40,10 +40,10 @@ if errorlevel 1 (
   if errorlevel 1 goto error
 )
 
-copy /Y dist\DashboardInstaladoresDMS.exe dist_dashboard\DashboardInstaladoresDMS.exe >nul
+copy /Y dist\DashboardInstaladores.exe dist_dashboard\DashboardInstaladores.exe >nul
 
 echo.
-echo Listo: dist_dashboard\DashboardInstaladoresDMS.exe
+echo Listo: dist_dashboard\DashboardInstaladores.exe
 echo Ejecuta ese archivo para crear instaladores por cliente.
 pause
 exit /b 0

@@ -3,7 +3,7 @@ setlocal
 cd /d "%~dp0\.."
 
 echo ===============================================
-echo  Generador manual del instalador del lector DMS
+echo  Generador manual del instalador del lector LectorCedulas
 echo ===============================================
 
 echo Este BAT genera un instalador generico desde los archivos de template.
@@ -18,15 +18,15 @@ if errorlevel 1 goto error
 rmdir /s /q build 2>nul
 rmdir /s /q dist 2>nul
 mkdir dist 2>nul
-xcopy /E /I /Y template dist\LectorCedulasDMS >nul
-cd dist\LectorCedulasDMS
-py -m PyInstaller --noconfirm --clean --windowed --onefile --name LectorCedulasDMS --icon assets\DMS_icono_circulo_i.ico main.py
+xcopy /E /I /Y template dist\LectorCedulas >nul
+cd dist\LectorCedulas
+py -m PyInstaller --noconfirm --clean --windowed --onefile --name LectorCedulas --icon assets\icono.ico main.py
 if errorlevel 1 goto error
-copy /Y dist\LectorCedulasDMS.exe .\LectorCedulasDMS.exe >nul
+copy /Y dist\LectorCedulas.exe .\LectorCedulas.exe >nul
 cd /d "%~dp0\.."
 
 echo.
-echo Para generar Setup.exe con licencia por cliente, abre DashboardInstaladoresDMS.exe.
+echo Para generar Setup.exe con licencia por cliente, abre DashboardInstaladores.exe.
 pause
 exit /b 0
 

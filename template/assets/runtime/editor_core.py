@@ -12,9 +12,9 @@ except Exception:
 CONFIG_DIR = "configs"
 
 ICON_CANDIDATES = [
-    os.path.join(os.path.dirname(sys.argv[0]), "assets", "DMS_icono_circulo_i.ico"),
-    os.path.join(os.path.dirname(sys.argv[0]), "DMS_icono_circulo_i.ico"),
-    "/mnt/data/DMS_icono_circulo_i.ico",
+    os.path.join(os.path.dirname(sys.argv[0]), "assets", "icono.ico"),
+    os.path.join(os.path.dirname(sys.argv[0]), "icono.ico"),
+    "/mnt/data/icono.ico",
 ]
 
 COLOR_BG = "#212121"
@@ -347,7 +347,7 @@ class EditorConfig(tk.Toplevel):
 class SelectorInicial(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("DMS - Configuraciones")
+        self.title("Configuraciones del lector")
         self.geometry("560x260")
         self.configure(bg=COLOR_BG)
         self._apply_icon()

@@ -88,7 +88,7 @@ def patch_legacy():
 class Manager(tk.Tk):
     def __init__(self):
         super().__init__(); migrate(); patch_legacy()
-        self.title("DMS - Configuraciones"); self.geometry("760x450"); self.minsize(700,420); self.configure(bg=BG)
+        self.title("Configuraciones del lector"); self.geometry("760x450"); self.minsize(700,420); self.configure(bg=BG)
         try:
             for p in legacy.ICON_CANDIDATES:
                 if os.path.exists(p):self.iconbitmap(default=p);break

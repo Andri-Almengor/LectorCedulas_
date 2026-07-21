@@ -17,7 +17,7 @@ try:
 except Exception:
     relativedelta = None
 
-APP_NAME = "DMS - Lector QR | Dashboard de Instaladores"
+APP_NAME = "Lector de Cédulas | Dashboard de Instaladores"
 APP_VERSION = "2.0.0"
 
 COLOR_BG = "#212121"
@@ -247,9 +247,9 @@ def _write_client_inno_script(build_root: str, client: dict, app_dir: str, out_d
     el dashboard reintenta automáticamente con use_setup_icon=False.
     Los accesos directos y la app instalada conservan el logo igualmente.
     """
-    icon_path = os.path.join(app_dir, "assets", "DMS_icono_circulo_i.ico")
-    iss_path = os.path.join(build_root, "LectorCedulasDMS_cliente.iss")
-    output_base = f"LectorCedulasDMS_Setup_{client['client_id']}_{now_utc().strftime('%Y%m%d_%H%M%S')}"
+    icon_path = os.path.join(app_dir, "assets", "icono.ico")
+    iss_path = os.path.join(build_root, "LectorCedulas_cliente.iss")
+    output_base = f"LectorCedulas_Setup_{client['client_id']}_{now_utc().strftime('%Y%m%d_%H%M%S')}"
 
     def esc(path: str) -> str:
         return os.path.abspath(path).replace('\\', '\\\\')
@@ -257,17 +257,17 @@ def _write_client_inno_script(build_root: str, client: dict, app_dir: str, out_d
     setup_icon_line = f"SetupIconFile={esc(icon_path)}" if use_setup_icon and os.path.exists(icon_path) else "; SetupIconFile omitido por compatibilidad"
 
     content = f"""
-#define MyAppName "Lector Cédulas DMS"
+#define MyAppName "Lector de Cédulas"
 #define MyAppVersion "4.0"
-#define MyAppPublisher "Digital Management Systems"
-#define MyAppExeName "LectorCedulasDMS.exe"
+#define MyAppPublisher "Proyecto independiente"
+#define MyAppExeName "LectorCedulas.exe"
 
 [Setup]
-AppId={{{{DMS-LECTOR-CEDULAS-{client['client_id']}}}}}
+AppId={{{{LectorCedulas-LECTOR-CEDULAS-{client['client_id']}}}}}
 AppName={{#MyAppName}}
 AppVersion={{#MyAppVersion}}
 AppPublisher={{#MyAppPublisher}}
-DefaultDirName={{autopf}}\\DMS\\LectorCedulasDMS
+DefaultDirName={{autopf}}\\LectorCedulas\\LectorCedulas
 DefaultGroupName={{#MyAppName}}
 DisableProgramGroupPage=yes
 OutputDir={esc(out_dir)}
@@ -291,10 +291,10 @@ Name: "startup"; Description: "Iniciar automáticamente con Windows"; GroupDescr
 Source: "{esc(app_dir)}\\*"; DestDir: "{{app}}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{{group}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; IconFilename: "{{app}}\\assets\\DMS_icono_circulo_i.ico"
-Name: "{{autodesktop}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; Tasks: desktopicon; IconFilename: "{{app}}\\assets\\DMS_icono_circulo_i.ico"
-Name: "{{userstartup}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; Tasks: startup; IconFilename: "{{app}}\\assets\\DMS_icono_circulo_i.ico"
-Name: "{{group}}\\Configurar lector"; Filename: "{{app}}\\crear_configuracion.exe"; IconFilename: "{{app}}\\assets\\DMS_icono_circulo_i.ico"
+Name: "{{group}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; IconFilename: "{{app}}\\assets\\icono.ico"
+Name: "{{autodesktop}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; Tasks: desktopicon; IconFilename: "{{app}}\\assets\\icono.ico"
+Name: "{{userstartup}}\\{{#MyAppName}}"; Filename: "{{app}}\\{{#MyAppExeName}}"; Tasks: startup; IconFilename: "{{app}}\\assets\\icono.ico"
+Name: "{{group}}\\Configurar lector"; Filename: "{{app}}\\crear_configuracion.exe"; IconFilename: "{{app}}\\assets\\icono.ico"
 
 [Run]
 Filename: "{{app}}\\{{#MyAppExeName}}"; Description: "Ejecutar {{#MyAppName}}"; Flags: nowait postinstall skipifsilent
@@ -366,17 +366,17 @@ def make_installer_zip(client: dict, out_dir: str) -> str:
         "expira": client["license"]["expires_at_utc"],
         "issued_at_utc": client["license"].get("issued_at_utc"),
         "client_id": client["client_id"],
-        "schema": "dms_license_v2",
+        "schema": "LectorCedulas_license_v2",
     }
     with open(os.path.join(workdir, "licencia.key"), "w", encoding="utf-8") as f:
         json.dump(lic_payload, f, indent=2, ensure_ascii=False)
 
-    icon_rel = os.path.join("assets", "DMS_icono_circulo_i.ico")
+    icon_rel = os.path.join("assets", "icono.ico")
     exe_main, exe_cfg = build_exes(workdir, icon_ico=icon_rel)
 
     app_dir = os.path.join(build_root, "app")
     os.makedirs(app_dir, exist_ok=True)
-    shutil.copy2(exe_main, os.path.join(app_dir, "LectorCedulasDMS.exe"))
+    shutil.copy2(exe_main, os.path.join(app_dir, "LectorCedulas.exe"))
     shutil.copy2(exe_cfg, os.path.join(app_dir, "crear_configuracion.exe"))
     shutil.copy2(os.path.join(workdir, "lector_otras_cedulas.py"), os.path.join(app_dir, "lector_otras_cedulas.py"))
     shutil.copy2(os.path.join(workdir, "capturar_nuevo_formato.py"), os.path.join(app_dir, "capturar_nuevo_formato.py"))
@@ -424,7 +424,7 @@ def make_update_zip(version: str, out_dir: str) -> str:
     if os.path.exists(ASSETS_SRC):
         shutil.copytree(ASSETS_SRC, os.path.join(app_dir, "assets"), dirs_exist_ok=True)
 
-    icon_rel = os.path.join("assets", "DMS_icono_circulo_i.ico")
+    icon_rel = os.path.join("assets", "icono.ico")
     exe_main, exe_cfg = build_exes(app_dir, icon_ico=icon_rel)
 
     # Construir paquete update
@@ -448,7 +448,7 @@ def make_update_zip(version: str, out_dir: str) -> str:
         shutil.copytree(assets_src, os.path.join(payload_dir, "assets"), dirs_exist_ok=True)
 
     manifest = {
-        "product": "DMS Lector QR",
+        "product": "LectorCedulas Lector QR",
         "version": version,
         "built_at_utc": iso_z(now_utc()),
         "notes": "Update sin instalador externo. Preserva licencia y configs.",
@@ -501,7 +501,7 @@ class Dashboard(tk.Tk):
             ))
 
     def _apply_window_icon(self):
-        icon_path = os.path.join(ASSETS_SRC, "DMS_icono_circulo_i.ico")
+        icon_path = os.path.join(ASSETS_SRC, "icono.ico")
         try:
             if os.path.exists(icon_path):
                 self.iconbitmap(default=icon_path)
@@ -564,7 +564,7 @@ class Dashboard(tk.Tk):
         header.pack(fill="x")
 
         
-        logo_path = os.path.join(ASSETS_SRC, "DMS_icono_circulo_i.ico")
+        logo_path = os.path.join(ASSETS_SRC, "icono.ico")
         try:
             from PIL import Image, ImageTk
             if os.path.exists(logo_path):
@@ -575,7 +575,7 @@ class Dashboard(tk.Tk):
             pass
         title_box = ttk.Frame(header, style="App.TFrame")
         title_box.pack(side="left", fill="x", expand=True)
-        ttk.Label(title_box, text="DMS Lector QR", style="Header.TLabel").pack(anchor="w")
+        ttk.Label(title_box, text="LectorCedulas Lector QR", style="Header.TLabel").pack(anchor="w")
         ttk.Label(title_box, text=f"Dashboard de Instaladores • v{APP_VERSION} • DB: {os.path.relpath(DB_PATH, BASE_DIR)}", style="Sub.TLabel").pack(anchor="w", pady=(2, 12))
 
         self.nb = ttk.Notebook(root)
