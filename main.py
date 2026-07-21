@@ -46,9 +46,9 @@ CONFIG_ACTUAL = os.path.join(CONFIG_DIR, "config_actual.json")
 CONFIG_DEFECTO = os.path.join(CONFIG_DIR, "formulario_visitantes.json")
 
 ICON_CANDIDATES = [
-    os.path.join(os.path.dirname(sys.argv[0]), "assets", "DMS_icono_circulo_i.ico"),
     os.path.join(os.path.dirname(sys.argv[0]), "assets", "icono.ico"),
-    os.path.join(os.path.dirname(sys.argv[0]), "DMS_icono_circulo_i.ico"),
+    os.path.join(os.path.dirname(sys.argv[0]), "assets", "icono.ico"),
+    os.path.join(os.path.dirname(sys.argv[0]), "icono.ico"),
 ]
 ICON_ASSETS_PATH = next((x for x in ICON_CANDIDATES if os.path.exists(x)), ICON_CANDIDATES[0])
 LAST_COM_FILE = os.path.join(CONFIG_DIR, "ultimo_com.json")
@@ -257,7 +257,7 @@ def ensure_single_instance():
     """
     global _SINGLETON_MUTEX
     try:
-        mutex_name = "Global\\DMS_QRReader_SingleInstance_v33"
+        mutex_name = "Global\\LectorCedulas_QRReader_SingleInstance_v33"
         handle = ctypes.windll.kernel32.CreateMutexW(None, False, mutex_name)
         # 183 = ERROR_ALREADY_EXISTS
         already_exists = ctypes.windll.kernel32.GetLastError() == 183
@@ -1210,7 +1210,7 @@ if __name__ == "__main__":
             ).start()
 
         icon_image = cargar_icono()
-        icon = TrayIcon("DMS_QR", icon_image, "DMS - Lector QR", menu=TrayMenu(
+        icon = TrayIcon("LectorCedulas_QR", icon_image, "Lector de Cédulas", menu=TrayMenu(
             TrayMenuItem("Cambiar configuración", cambiar_configuracion),
             TrayMenuItem("Salir", salir)
         ))

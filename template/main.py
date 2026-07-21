@@ -87,13 +87,13 @@ def toggle(icon=None):
         if not a or not b or a == b:
             msg = "Defina dos favoritas distintas en Crear configuraciones."
             core.guardar_log("⚠️ " + msg)
-            try: icon.notify(msg, "DMS - Configuraciones")
+            try: icon.notify(msg, "Configuraciones del lector")
             except Exception: pass
             return
         target = b if active_name() == a else a
         set_active(target)
         core.guardar_log(f"✅ Configuración activa: {target}")
-        try: icon.notify(f"Configuración activa: {os.path.splitext(target)[0]}", "DMS - Cambio rápido")
+        try: icon.notify(f"Configuración activa: {os.path.splitext(target)[0]}", "Cambio rápido de configuración")
         except Exception: pass
 
 
@@ -199,7 +199,7 @@ def run():
             try: r=Tk(); r.withdraw(); ConfigSelector(r); r.destroy()
             except Exception as e: core.guardar_log(f"⚠️ Error abriendo selector: {e}")
         threading.Thread(target=open_ui,daemon=True).start()
-    image=core.cargar_icono(); icon=core.TrayIcon("DMS_QR",image,"DMS - Lector QR",menu=core.TrayMenu(
+    image=core.cargar_icono(); icon=core.TrayIcon("LectorCedulas_QR",image,"Lector de Cédulas",menu=core.TrayMenu(
         core.TrayMenuItem(f"Alternar favoritas ({HOTKEY})",lambda i,x=None:toggle(i)),
         core.TrayMenuItem("Cambiar configuración",choose),core.TrayMenuItem("Salir",exit_app)))
     threading.Thread(target=hotkey_loop,args=(icon,),daemon=True).start(); icon.run()

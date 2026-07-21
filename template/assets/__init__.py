@@ -1,1 +1,1 @@
-# Paquete de recursos internos de DMS.
+# Paquete de recursos internos de LectorCedulas.

@@ -10,12 +10,12 @@ from tkinter import ttk, messagebox, filedialog
 import serial
 import serial.tools.list_ports
 
-APP_TITLE = "DMS - Capturador de otras cédulas"
+APP_TITLE = "Capturador de otras cédulas"
 COLOR_BG = "#212121"
 COLOR_PANEL = "#2a2a2a"
 COLOR_TEXT = "white"
 COLOR_ACCENT = "#e53935"
-ICON_PATH = os.path.join(os.path.dirname(sys.argv[0]), "assets", "DMS_icono_circulo_i.ico")
+ICON_PATH = os.path.join(os.path.dirname(sys.argv[0]), "assets", "icono.ico")
 SALIDA_DIR = "lecturas_otras_cedulas"
 
 
